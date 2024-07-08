@@ -1,0 +1,44 @@
+<% layout('/layout/boilerplate') -%>
+
+
+    <br>
+    <div class="row">
+        <h1 class="text-center">Create New Listing</h1>
+        <br>
+        <form action="/listings" method="post" class="col-8 offset-2 needs-validation" novalidate >
+            <div>
+                <label for="Title" class="form-label">Enter Title</label>
+                <input type="text" class="form-control " name="Listing[title]" placeholder="Title" required>
+            </div>
+            <br>
+            <div>
+                <label for="description" class="form-label">Enter Description</label>
+                <textarea name="Listing[description]" class="form-control" rows="5" cols="50" required></textarea>
+            </div>
+            <br>
+            <div>
+                <label for="url" class="form-label">Enter Image Url</label>
+                <input type="text" class="form-control" name="Listing[image][url]" placeholder="image url/link ">
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="price" class="form-label">Enter Price</label>
+                    <input type="text" class="form-control" name="Listing[price]" placeholder="Price" required>
+                </div>
+                <div class="col-md-8">
+                    <label for="location" class="form-label">Enter Location</label>
+                    <input type="text" class="form-control" name="Listing[location]" placeholder="Location" required>
+                </div>
+            </div>
+            <br>
+            <div>
+                <label for="country" class="form-label">Enter Country</label>
+                <input type="text" id="country" class="form-control" name="Listing[country]" placeholder="Country" required>
+            </div>
+            <br>
+            <button class="btn xbtn">add</button>
+            <br>
+            <br>
+        </form>
+    </div>

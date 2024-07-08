@@ -1,0 +1,77 @@
+<% layout('/layout/boilerplate') -%>
+
+
+
+
+    <br>
+
+    <div class="row">
+        <h1 class="text-center">Edit List</h1>
+        <br>
+        <form action="/listings/<%=List._id%>?_method=PUT" method="post" class="col-8 offset-2">
+            <div>
+                <label for="Title" class="form-label"> Title</label>
+                <input type="text" class="form-control" name="Listing[title]" value="<%=List.title%>">
+            </div>
+            <br>
+
+            <div>
+                <label for="description" class="form-label"> Description</label>
+                <textarea name="Listing[description]" class="form-control" rows="5" cols="50"> <%=List.description%></textarea>
+            </div>
+            <br>
+
+            <div>
+                <label for="url" class="form-label"> Image Url</label>
+                <input type="object" class="form-control" name="Listing[image][url]" value="<%=List.image.url%>">
+            </div>
+           
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="price" class="form-label"> Price</label>
+                    <input type="number" class="form-control" name="Listing[price]" value="<%=List.price%>">
+
+                </div>
+
+
+                <div class="col-md-8">
+                    <label for="location" class="form-label"> Location</label>
+                    <input type="text" class="form-control" name="Listing[location]" value="<%=List.location%>">
+                </div>
+            </div>
+            <br>
+            <div>
+                <label for="country" class="form-label"> Country</label>
+                <input type="text" class="form-control" name="Listing[country]" value="<%=List.country%>">
+            </div>
+
+            <br>
+
+
+            <button class="btn xbtn">update</button>
+            <br><br>
+
+        </form>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
