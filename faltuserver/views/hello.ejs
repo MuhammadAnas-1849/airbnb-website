@@ -11,3 +11,91 @@
     <h1>hello : <%= name %></h1>
 </body>
 </html>
+see the signup form error in your React application. Here are the consolidated potential issues and solutions based on the code snippets you provided:
+
+1. Missing User Model (User.register function):
+
+It seems your UserRoute.js code attempts to use a User.register function, but the provided code for user.js doesn't have it.
+You'll likely need a user model with authentication functionalities (e.g., using Passport.js or a similar library). This model would typically handle user registration and password hashing.
+
+
+2. Error Handling and Flash Messages:
+
+Your error handling in UserRoute.js catches errors but doesn't provide specific feedback to the user.
+Consider using a more informative error message or logging the error for debugging.
+While you're using req.flash to store messages, it's unclear how you're displaying them in user.ejs. You'll need to conditionally render them in your template.
+
+Here's a possible approach to address these issues (assuming you're using Passport.js):
+
+user.js (model):
+
+
+const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
+
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  }
+});
+
+userSchema.plugin(passportLocalMongoose);
+
+module.exports = mongoose.model('User', userSchema);
+
+
+UserRoute.js (with error handling and flash messages):
+
+
+const express = require('express');
+const router = express.Router();
+const asyncWrap = require('../utils/wrapAsync');
+const passport = require('passport'); // Assuming you have Passport configured
+
+const User = require('../models/user');
+
+router.get('/SignUp', (req, res) => {
+  res.render('user/signup.ejs');
+});
+
+router.post('/SignUp', asyncWrap(async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+    const newUser = new User({ username, email });
+    const registeredUser = await User.register(newUser, password);
+    req.flash('success', 'Welcome to Wanderlust!');
+    res.redirect('/listings');
+  } catch (err) {
+    req.flash('error', err.message); // Provide more specific error if possible
+    res.redirect('/SignUp');
+  }
+}));
+
+module.exports = router;
+
+
+
+user.ejs (with flash message display):
+
+<% if (locals.success) { %>
+  <div class="alert alert-success"><%= locals.success %></div>
+<% } %>
+
+<% if (locals.error) { %>
+  <div class="alert alert-danger"><%= locals.error %></div>
+<% } %>
+
+
+Additional Considerations:
+
+Make sure you've configured Passport.js in your app.js for authentication.
+Consider using a validation library on the client-side (e.g., React Hook Form or Yup) to validate user input before submitting the form.
+Implement proper error handling and user feedback mechanisms in your application.
+Remember to adapt these suggestions to your specific project structure and libraries. If you have more details about the error messages you're encountering, I can provide more tailored guidance

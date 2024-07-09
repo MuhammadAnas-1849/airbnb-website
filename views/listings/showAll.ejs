@@ -4,18 +4,18 @@
     
         <div class="row  row-cols-lg-4 row-cols-md-3 row-cols-sm-1">
 
-        <% for(let list of allListings){ %>
+        <% for(let List of allListings){ %>
 
-            <a href="/listings/<%=list._id%>" class="anc">
+            <a href="/listings/<%=List._id%>" class="anc">
 
                 <div class="card cardx col">
-                    <img src="<%=list.image.url%>" class="card-img-top" alt="listing image">
+                    <img src="<%=List.image.url%>" class="card-img-top" alt="listing image">
                     <div class="card-body">
                         <p class="card-text">
-                            <%=list.title%>
+                            <%=List.title%>
                         </p>
                         <p class="card-text">
-                            Rs <%= (list.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") %>/night
+                            Rs <%= (List.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") %>/night
                         </p>
                     </div>
                 </div>
