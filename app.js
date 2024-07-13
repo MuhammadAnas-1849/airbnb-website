@@ -43,15 +43,13 @@ const sessionOptions = {
   resave: false,
   saveUninitialized: true,
   cookie: {
-    expires: Date.now() + 7 + 24 + 60 + 60 + 1000,
-    maxAge: 7 + 24 + 60 + 60 + 1000,
+    expires: Date.now() * 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
   },
 };
 
-app.get("/", (req, res) => {
-  res.send("index");
-});
+
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -70,6 +68,9 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/", (req, res) => {
+  res.send("index");
+});
 app.use("/listings", ListingRoute);
 app.use("/listings/:id/reviews", ReviewRoute);
 app.use("/", UserRoute);

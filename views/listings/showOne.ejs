@@ -3,6 +3,10 @@
         <div class="card cardx offset-4 my-5" style="width: 30rem;">
             <img src="<%=List.image.url%>" class="card-img-top img-fluid" alt="listing image">
             <div class="card-body">
+                <h5 class="card-title text-danger  mb-4">
+                    <b class="text-dark">Created :</b>
+                   <b> <%=List.owner.username%></b>
+                </h5>
                 <h5 class="card-title ">
                     <b>Title :</b>
                     <%=List.title%>
@@ -27,6 +31,7 @@
                     <%=List.country%>
                 </h5>
                 <br>
+                <% if(currUser && currUser._id.equals(List.owner._id)){ %>
                 <div class="row">
                     <form action="/listings/<%=List._id%>/edit" method="get" class="col-md-3"><button
                             class="btn  btn-dark">Edit </button></form>
@@ -34,10 +39,12 @@
                         <button class="btn btn-danger">Delete</button>
                     </form>
                 </div>
+                <% } %>
             </div>
         </div>
         <hr>
         <div>
+            <% if(currUser ){ %>
             <h3>Leave Review</h3>
             <form action="/listings/<%=List.id%>/reviews" method="post" novalidate class="needs-validation">
                 <div class="my-2">
@@ -56,6 +63,7 @@
                     <button class="mb-5 mt-3 btn btn-danger">Submit</button>
                 </div>
             </form>
+            <% } %>
         </div>
     </div>
    <h2 class="text-center text-danger mb-5">All reviews</h2>
@@ -63,7 +71,7 @@
         <% for( review of List.reviews){%>
             <div class="card col-md-5 ms-5 mb-5">
                 <div class="card-body">
-                    <h5 class="card-title text-danger"><b>Steven Smith.</b></h5>
+                    <h5 class="card-title text-danger"><b>@<%= review.author.username %>.</b></h5>
                     <p class="card-text">
                         <%= review.comment%>.
                     </p>
