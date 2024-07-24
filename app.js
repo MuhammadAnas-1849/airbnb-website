@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV != "production") {
+  require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -13,7 +17,7 @@ const flash = require("connect-flash");
 const User = require("./models/user.js");
 const LocalPassport = require("passport-local");
 const passport = require("passport");
-
+const Listing = require("./models/listing.js");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -49,8 +53,6 @@ const sessionOptions = {
   },
 };
 
-
-
 app.use(session(sessionOptions));
 app.use(flash());
 
@@ -68,12 +70,31 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => {
-  res.send("index");
-});
+// app.get("/", (req, res) => {
+//   res.send("index");
+// });
 app.use("/listings", ListingRoute);
 app.use("/listings/:id/reviews", ReviewRoute);
 app.use("/", UserRoute);
+app.post("/listings/search", async (req, res) => {
+  let searchQuery = req.body.searchQuery.trim();
+  let query = await Listing.find({ select: { $regex: searchQuery, $options: "i" } });
+
+  if (searchQuery === "") {
+    req.flash("error", "search result doesn't find");
+    res.redirect("/listings");
+  } else if (query.length == 0) {
+    req.flash("error", "search result doesn't find");
+    res.redirect("/listings");
+  } else {
+    console.log(searchQuery);
+    let searchResult = await Listing.find({
+      select: { $regex: searchQuery, $options: "i" },
+    });
+    console.log(searchResult);
+    res.render("listings/showAll.ejs", { searchResults: searchResult });
+  }
+});
 
 app.all("*", (req, res, next) => {
   next(new expressErr(400, "page not found"));

@@ -33,8 +33,10 @@ module.exports.loginForm = (req, res) => {
 module.exports.login = (req, res) => {
   let { username } = req.body;
   req.flash("success", "Welcome To Wanderlust", username);
-  console.log(res.locals.redirectUrl);
   let redirectUrl = res.locals.redirectUrl || "/listings";
+  if (redirectUrl.includes('_method=DELETE')) {
+    redirectUrl = '/listings'; 
+  }
   res.redirect(redirectUrl);
 };
 

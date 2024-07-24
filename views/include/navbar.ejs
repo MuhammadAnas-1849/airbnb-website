@@ -1,25 +1,43 @@
-<nav class="navbar navbar-expand-lg navbar-expand-md  bg-body-tertiary border-bottom sticky-top">
+<style>
+
+</style>
+<nav class="navbar navbar-expand-lg    bg-body-tertiary border-bottom sticky-top">
   <div class="container-fluid">
     <a class="navbar-brand" href=""><i class="fa-regular fa-compass"></i></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link " aria-current="page" href="/">Home</a>
-        <a class="nav-link" href="/listings">All Listings</a>
-        <a class="nav-link" href="/listings/new">Add new Listing</a>
-      </div>
 
-      <div class="navbar-nav ms-auto">
-        <% if(!currUser) { %>
-          <a class="nav-link " aria-current="page" href="/signup">Sign Up</a>
-          <a class="nav-link" href="/login">Log In</a>
-          <% } else { %>
-            <a class="nav-link" href="/logout">Log Out</a>
-            <% } %>
-            
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="navbar-nav explore">
+          <a class="nav-link" href="/listings">Explore</a>
+        </div>
+        <form class="d-flex ms-auto searchbar" role="search" action="/listings/search" method="post">
+          <input class="form-control search-inp me-2" type="search" placeholder="Search destinations"
+            aria-label="Search" name="searchQuery" required>
+          <button class="btn search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+        </form>
+
+
+        <div class="navbar-nav navbtndiv ms-auto">
+          <a class="nav-link" href="/listings/new">Airbnb your home</a>
+          <% if(!currUser) { %>
+            <button class="btn btn-sm navbtn mx-3 "><a class="nav-link text-white" aria-current="page"
+                href="/signup">Sign
+                Up</a></button>
+            <button class=" btn btn-sm btn-dark"> <a class="nav-link text-white" href="/login">Log In</a></button>
+            <% } else { %>
+              <button class="btn btn-sm btn-dark navbtn mx-3 "><a class="nav-link text-white" href="/logout">Log
+                  Out</a></button>
+              <% } %>
+
+        </div>
+
       </div>
     </div>
   </div>

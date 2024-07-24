@@ -5,11 +5,26 @@
     <div class="row">
         <h1 class="text-center">Create New Listing</h1>
         <br>
-        <form action="/listings" method="post" class="col-8 offset-2 needs-validation" novalidate >
+        <form action="/listings" method="post" class="col-8 offset-2 needs-validation" novalidate
+            enctype="multipart/form-data">
             <div>
                 <label for="Title" class="form-label">Enter Title</label>
                 <input type="text" class="form-control " name="Listing[title]" placeholder="Title" required>
             </div>
+            <br> 
+                <div>
+                    <label for="inputState" class="form-label">State</label>
+                    <select id="inputState" class="form-select" name="Listing[select]">
+                        <option selected>Rooms</option>
+                        <option>Iconic Cities</option>
+                        <option>Mountains</option>
+                        <option>Castles</option>
+                        <option>Amazing Pools</option>
+                        <option>Camping</option>
+                        <option>Farms</option>
+                        <option>Arctic</option>
+                    </select>
+            </form>
             <br>
             <div>
                 <label for="description" class="form-label">Enter Description</label>
@@ -17,8 +32,8 @@
             </div>
             <br>
             <div>
-                <label for="url" class="form-label">Enter Image Url</label>
-                <input type="text" class="form-control" name="Listing[image][url]" placeholder="image url/link ">
+                <label for="url" class="form-label">Upload Listing Image</label>
+                <input type="file" class="form-control" name="Listing[image]" placeholder="image" required>
             </div>
             <br>
             <div class="row">
@@ -28,13 +43,15 @@
                 </div>
                 <div class="col-md-8">
                     <label for="location" class="form-label">Enter Location</label>
-                    <input type="text" class="form-control" name="Listing[location]" placeholder="Location" required>
+                    <input type="text" class="form-control" name="Listing[location]" placeholder="Malir, Karachi"
+                        required>
                 </div>
             </div>
             <br>
             <div>
                 <label for="country" class="form-label">Enter Country</label>
-                <input type="text" id="country" class="form-control" name="Listing[country]" placeholder="Country" required>
+                <input type="text" id="country" class="form-control" name="Listing[country]" placeholder="Country"
+                    required>
             </div>
             <br>
             <button class="btn xbtn">add</button>

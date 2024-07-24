@@ -5,9 +5,10 @@ body {
   min-height: 100vh;
 }
 
-.container{
+.container {
   flex: 1;
 }
+
 .navbar {
   height: 5rem;
 }
@@ -68,8 +69,101 @@ footer {
   background-color: white;
 }
 
-.xbtn{
+.xbtn {
   color: white !important;
   background-color: rgb(250, 40, 75) !important;
   border: none !important;
 }
+.navbtn{
+  background-color: rgb(248, 59, 91) !important;
+  border: none !important;
+
+}
+
+/* map token */
+#map {
+  height: 60vh;
+  width: 50vw;
+  border-radius: 0.5rem;
+}
+
+/* slider */
+#filters{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.filter{
+  margin-right: 3rem;
+  margin-top: 1rem;
+  text-align: center;
+  opacity: 0.8;
+}
+.filter:hover{
+  opacity: 1;
+  cursor: pointer;
+}
+.filter p{
+  font-size: 0.9rem;
+}
+
+.tax-toggle{
+  border: 0.5px solid black;
+  border-radius: 0.7rem;
+  padding: 1rem;
+  height: 2.5rem; 
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.textinfo{
+  display: none;
+}
+/* NAV SEARCH */
+.search-btn{
+  background-color: rgb(250, 40, 75)!important;
+  border-radius: 30px!important;
+  padding: 0 1rem 0 1rem!important;
+  color: white!important;
+  }
+  .search-btn:hover{
+  background-color: rgb(250, 40, 75)!important;
+  }
+  .search-btn i{
+    display: inline!important;
+    margin-right: 0.5rem!important;
+  }
+  .search-inp{
+    border-radius: 30px!important;
+    padding: 0.4rem 3rem 0.4rem 3rem!important;
+  }
+  /* NAV TOGGGLE */
+  @media (max-width: 991px) {
+    .navbtndiv {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .navbtndiv button {
+      width: 80%;
+      margin-top: 2rem;
+    }
+
+    .navbtndiv>a {
+      font-size: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .searchbar {
+      position: fixed;
+      top: 10%;
+    }
+    .explore {
+      font-size: 1.5rem;
+      margin-top: 5rem;
+      text-align: center;
+    }
+  }

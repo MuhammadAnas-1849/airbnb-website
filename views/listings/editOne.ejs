@@ -8,7 +8,8 @@
     <div class="row">
         <h1 class="text-center">Edit List</h1>
         <br>
-        <form action="/listings/<%=List._id%>?_method=PUT" method="post" class="col-8 offset-2">
+        <form action="/listings/<%=List._id%>?_method=PUT" method="post" class="col-8 offset-2"
+            enctype="multipart/form-data">
             <div>
                 <label for="Title" class="form-label"> Title</label>
                 <input type="text" class="form-control" name="Listing[title]" value="<%=List.title%>">
@@ -17,15 +18,21 @@
 
             <div>
                 <label for="description" class="form-label"> Description</label>
-                <textarea name="Listing[description]" class="form-control" rows="5" cols="50"> <%=List.description%></textarea>
+                <textarea name="Listing[description]" class="form-control" rows="5"
+                    cols="50"> <%=List.description%></textarea>
             </div>
             <br>
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-md-4">
+                    <p>Original image</p>
+                    <img src="<%= List.image.url %>" alt="orignal image" class="rounded" style="width: 15rem; height: 10rem;">
+                </div>
 
-            <div>
-                <label for="url" class="form-label"> Image Url</label>
-                <input type="object" class="form-control" name="Listing[image][url]" value="<%=List.image.url%>">
+                <div class="col-md-8">
+                    <label for="url" class="form-label">Upload New Listing Image</label>
+                    <input type="file" class="form-control" name="Listing[image]" placeholder="image">
+                </div>
             </div>
-           
             <br>
             <div class="row">
                 <div class="col-md-4">
@@ -54,24 +61,3 @@
 
         </form>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
