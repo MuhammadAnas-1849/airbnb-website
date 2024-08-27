@@ -13,11 +13,13 @@ const ListingRoute = require("./routes/listing.js");
 const ReviewRoute = require("./routes/review.js");
 const UserRoute = require("./routes/user.js");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const User = require("./models/user.js");
 const LocalPassport = require("passport-local");
 const passport = require("passport");
 const Listing = require("./models/listing.js");
+const URL = process.env.MONGO_URL;
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -35,14 +37,27 @@ main()
   });
 
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/website");
+  await mongoose.connect(URL);
 }
 
 app.listen(8080, () => {
   console.log("Server is running on port 8080");
 });
 
+const store = MongoStore.create({
+  mongoUrl: URL,
+  crypto: {
+    secret: "qwertyuiop",
+  },
+  touchAfter: 24 * 3600,
+});
+
+store.on("error",()=>{
+  console.log("error in mongo session store", err)
+})
+
 const sessionOptions = {
+  store,
   secret: "qwertyuiop",
   resave: false,
   saveUninitialized: true,
@@ -78,7 +93,9 @@ app.use("/listings/:id/reviews", ReviewRoute);
 app.use("/", UserRoute);
 app.post("/listings/search", async (req, res) => {
   let searchQuery = req.body.searchQuery.trim();
-  let query = await Listing.find({ select: { $regex: searchQuery, $options: "i" } });
+  let query = await Listing.find({
+    select: { $regex: searchQuery, $options: "i" },
+  });
 
   if (searchQuery === "") {
     req.flash("error", "search result doesn't find");

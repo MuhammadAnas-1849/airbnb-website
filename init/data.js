@@ -349,4 +349,27 @@ const sampleListings = [
     },
   ];
   
+
+  [
+    {
+      title: "Cozy Beach House",
+      select: "house",
+      description: "A beautiful beach house with 3 bedrooms and 2 bathrooms",
+      image: {
+        filename: "listingimage",
+        url: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
+      },
+      price: 200,
+      location: "Beach Street",
+      country: "USA",
+    
+      geometry: {
+        type: "Point",
+        coordinates: [-122.084051, 37.385348]
+      }
+    },
+
+  ]
+  
+  
   module.exports = { data: sampleListings };
