@@ -19,8 +19,8 @@ const User = require("./models/user.js");
 const LocalPassport = require("passport-local");
 const passport = require("passport");
 const Listing = require("./models/listing.js");
-const URL = process.env.MONGO_URL;
-
+// const URL = "mongodb+srv://muhammadanaswanderlust_49:F40LUAZs7ywGK1Vk@wanderlustcluster.avjst.mongodb.net/?retryWrites=true&w=majority&appName=WanderLustCluster";
+const MONGO_URL = process.env.URL
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
@@ -37,7 +37,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(URL);
+  await mongoose.connect(MONGO_URL);
 }
 
 app.listen(8080, () => {
@@ -45,9 +45,9 @@ app.listen(8080, () => {
 });
 
 const store = MongoStore.create({
-  mongoUrl: URL,
+  mongoUrl: MONGO_URL,
   crypto: {
-    secret: "qwertyuiop",
+    secret: process.env.SECRET,
   },
   touchAfter: 24 * 3600,
 });
@@ -58,7 +58,7 @@ store.on("error",()=>{
 
 const sessionOptions = {
   store,
-  secret: "qwertyuiop",
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {

@@ -1,61 +1,45 @@
-if (process.env.NODE_ENV != "production") {
-  require("dotenv").config();
-}
-
 const mongoose = require("mongoose");
-const listing = require("../models/listing");
-// const initData = require("./data");
+const initData = require("./data.js");
+const Listing = require("../models/listing.js");
 
-// const initDb = async () => {
-//   // await listing.deleteMany({});
-//   // initData.data = initData.data.map((obj) => ({
-//   //   ...obj,
-//   //   owner: "668e62770b9fe980426dc892",
-//   // }));
-//   await listing.insertMany(initData.data);
-//   console.log("data has  initialised");
-//   console.log(initData.data);
-// };
-// initDb();
-
-const data = 
-[
-  {
-    title: "Cozy Beach House",
-    select: "house",
-    description: "A beautiful beach house with 3 bedrooms and 2 bathrooms",
-    image: {
-      filename: "listingimage",
-      url: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
-    },
-    price: 200,
-    location: "Beach Street",
-    country: "USA",
-  
-    geometry: {
-      type: "Point",
-      coordinates: [-122.084051, 37.385348]
-    }
-  },
-
-]
-
-const initDb = async () => {
-  await listing.insertMany(data);
-  console.log("data has  initialised");
-  console.log(data);
-};
-initDb();
-
+const MONGO_URL = "mongodb+srv://muhammadanaswanderlust_49:F40LUAZs7ywGK1Vk@wanderlustcluster.avjst.mongodb.net/?retryWrites=true&w=majority&appName=WanderLustCluster";
 
 main()
   .then(() => {
-    console.log("connected");
+    console.log("connected to DB");
   })
   .catch((err) => {
     console.log(err);
   });
 
-async function main() {
-  await mongoose.connect(process.env.MONGO_URL);
-}
+  async function main() {
+    await mongoose.connect(MONGO_URL);
+  }
+
+  const initDB = async () => {
+    await Listing.deleteMany({});
+    initData.data = initData.data.map((obj) => ({
+      ...obj,
+      owner: "66cead7b5640ce3e9c17aa5e",
+      geometry: {
+        type: 'Point', // or whatever type is required
+        // Other geometry fields...
+      },
+      select: true, // or whatever value is required
+    }));
+    await Listing.insertMany(initData.data);
+    console.log("Data was initialized");
+  };
+  initDB();
+  
+// const initDB = async () => {
+//   await Listing.deleteMany({});
+//   initData.data = initData.data.map((obj) => ({
+//     ...obj,
+//     owner: "66cead7b5640ce3e9c17aa5e",
+//   }));
+//   await Listing.insertMany(initData.data);
+//   console.log("data was initialized");
+// };
+
+// initDB();
