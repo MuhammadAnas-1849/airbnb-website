@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": "20.12.2"
+    "node": "v22.7.0"
   },
   "name": "node-web",
   "version": "1.0.0",
